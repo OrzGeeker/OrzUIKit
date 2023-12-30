@@ -2,6 +2,26 @@
 
 UI组件库
 
+## 使用方式
+
+### CocoaPods
+
+```ruby
+
+source 'https://github.com/OrzGeeker/Specs.git'
+
+pod 'OrzUIKit'
+
+```
+
+### Swift Package Manager
+
+```swift
+
+.package(url: "https://github.com/OrzGeeker/OrzUIKit.git", from: "0.0.1")
+
+```
+
 ## UIColor
 
 组件通过 Swift 脚本 scripts/auto_generate.swift 从 Assets/Assets.xcassets 获取全部颜色集，自动生成配色方案接口文件 **UIColor+AutoGen.swift** 暴露给外部 `Swift`/`Objective-C` 组件调用
