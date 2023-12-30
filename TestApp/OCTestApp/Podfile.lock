@@ -1,0 +1,26 @@
+PODS:
+  - OrzUIKit/Core (0.0.1):
+    - SnapKit (~> 5.6.0)
+  - OrzUIKit/Debug (0.0.1):
+    - OrzUIKit/Core
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - OrzUIKit/Core (from `../../OrzUIKit.podspec`)
+  - OrzUIKit/Debug (from `../../OrzUIKit.podspec`)
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  OrzUIKit:
+    :path: "../../OrzUIKit.podspec"
+
+SPEC CHECKSUMS:
+  OrzUIKit: b365096e0137b49a3b2723644727efc569cabef6
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: 1d97a6d922f34d9df2255f7a9973799735d549c2
+
+COCOAPODS: 1.14.3
