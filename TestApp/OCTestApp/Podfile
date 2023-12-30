@@ -1,8 +1,5 @@
 platform :ios, '11.0'
 
 target 'OCTestApp' do
-  pod 'OrzUIKit', :path => '../../OrzUIKit.podspec', :subspecs => [
-    "Core",
-    "Debug"
-  ]
+  pod 'OrzUIKit/Debug', :path => '../../OrzUIKit.podspec'
 end

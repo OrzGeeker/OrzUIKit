@@ -2,6 +2,8 @@
 // ⚠️ 组件scripts目录下auto_generate.swift脚本自动生成, 请不要手动修改文件内空 |
 // ====================================================================
 
+import UIKit
+
 extension Bundle {
 
     static func bundle(with name: String) -> Bundle {
@@ -17,6 +19,9 @@ extension Bundle {
 }
 
 extension Bundle {
-
-    static let swiftAssetsBundle = Bundle.bundle(with: "OrzUIKit")
+#if canImport(Core)
+    static let resourceBundle = Bundle.module
+#else
+    static let resourceBundle = Bundle.bundle(with: "OrzUIKit")
+#endif
 }

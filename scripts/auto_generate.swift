@@ -47,7 +47,7 @@ func generate_color_scheme() throws {
 
         let static_color_member = """
 
-            static let \(color): UIColor = Scheme.\(color).color
+            static let \(color): UIColor = ColorScheme.\(color).color
 
         """
 
@@ -70,19 +70,12 @@ func generate_color_scheme() throws {
     }
 
     let color_scheme_enum_type = """
+    public enum ColorScheme: String, CaseIterable {
+        \(allColorCaseDefine)
+    
+        public var color: UIColor { UIColor.uikitColor(with: self.rawValue) }
 
-    extension UIColor {
-
-        enum Scheme: String, CaseIterable {
-            \(allColorCaseDefine)
-        }
-    }
-
-    extension UIColor.Scheme {
-
-        var color: UIColor { UIColor.uikitColor(with: self.rawValue) }
-
-        var name: String { String(describing: self) }
+        public var name: String { String(describing: self) }
     }
 
     """
@@ -90,12 +83,13 @@ func generate_color_scheme() throws {
     let target_file_content = """
     \(autoGenFileContentHeader)
 
+    import UIKit
+    
     @objc public extension UIColor {
         \(color_scheme_interface_content)
     }
 
     \(color_scheme_enum_type)
-
     """
 
     try target_file_content.write(toFile: color_scheme_interface_file_path, atomically: true, encoding: .utf8)
@@ -140,7 +134,7 @@ func generate_image_interface() throws {
 
         let static_image_member = """
 
-            static let \(image): UIImage = Assets.\(image).image
+            static let \(image): UIImage = ImageAssets.\(image).image
 
         """
 
@@ -163,26 +157,21 @@ func generate_image_interface() throws {
     }
 
     let image_enum_type = """
-
-    extension UIImage {
-
-        enum Assets: String, CaseIterable {
-            \(allImageCaseDefine)
-        }
-    }
-
-    extension UIImage.Assets {
+    public enum ImageAssets: String, CaseIterable {
+        \(allImageCaseDefine)
         
-        var name: String { String(describing: self) }
+        public var name: String { String(describing: self) }
 
-        var image: UIImage { .uikitImage(name: self.rawValue) }
+        public var image: UIImage { .uikitImage(name: self.rawValue) }
     }
 
     """
 
     let target_file_content = """
     \(autoGenFileContentHeader)
-
+    
+    import UIKit
+    
     @objc public extension UIImage {
         \(image_interface_file_content)
     }
@@ -214,6 +203,8 @@ func generate_resouce_bundle() throws {
     let bundle_interface_file_content="""
     \(autoGenFileContentHeader)
     
+    import UIKit
+    
     extension Bundle {
 
         static func bundle(with name: String) -> Bundle {
@@ -229,8 +220,11 @@ func generate_resouce_bundle() throws {
     }
 
     extension Bundle {
-
-        static let swiftAssetsBundle = Bundle.bundle(with: "\(resource_bundle_name)")
+    #if canImport(Core)
+        static let resourceBundle = Bundle.module
+    #else
+        static let resourceBundle = Bundle.bundle(with: "\(resource_bundle_name)")
+    #endif
     }
     """
 

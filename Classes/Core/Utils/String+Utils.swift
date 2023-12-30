@@ -1,3 +1,6 @@
+
+import UIKit
+
 extension String {
 
     var color: UIColor {

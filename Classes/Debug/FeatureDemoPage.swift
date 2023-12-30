@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+#if canImport(Core)
+import Core
+#endif
+
 enum ItemType: String, CaseIterable {
 
     case colorScheme
@@ -9,9 +13,9 @@ enum ItemType: String, CaseIterable {
     var title: String {
         switch self {
         case .colorScheme:
-            return "配色方案 (共\(UIColor.Scheme.allCases.count)种)"
+            return "配色方案 (共\(ColorScheme.allCases.count)种)"
         case .image:
-            return "图片资源 (共\(UIImage.Assets.allCases.count)个)"
+            return "图片资源 (共\(ImageAssets.allCases.count)个)"
         }
     }
 }
@@ -41,6 +45,8 @@ public final class FeatureDemoPage: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Features"
+        
         view.addSubview(tableView)
 
         tableView.snp.makeConstraints { make in

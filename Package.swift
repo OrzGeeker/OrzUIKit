@@ -4,5 +4,33 @@
 import PackageDescription
 
 let package = Package(
-    name: "OrzUIKit"
+    name: "OrzUIKit",
+    platforms: [
+        .iOS(.v12)
+    ],
+    products: [
+        .library(name: "Core", targets: ["Core"]),
+        .library(name: "Debug", targets: ["Debug"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.6.0")
+    ],
+    targets: [
+        .target(
+            name: "Core",
+            dependencies: ["SnapKit"],
+            path: "Classes/Core",
+            resources: [
+                .process("Classes/Core/Assets")
+            ]
+        ),
+        .target(
+            name: "Debug",
+            dependencies: ["Core"],
+            path: "Classes/Debug"
+        )
+    ],
+    swiftLanguageVersions: [
+        .v5
+    ]
 )

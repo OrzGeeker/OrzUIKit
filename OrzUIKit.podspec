@@ -15,8 +15,9 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Classes/Core/**/*.swift'
+#    ss.exclude_files = 'Classes/Core/Assets/**/*'
     ss.resource_bundles = {
-      'OrzUIKit' => ['Assets/**/*.xcassets']
+      'OrzUIKit' => ['Classes/Core/Assets/**/*.xcassets']
     }
     ss.dependency 'SnapKit', '~> 5.6.0'
 
@@ -26,7 +27,7 @@ Pod::Spec.new do |s|
     echo SRCROOT: $PODS_TARGET_SRCROOT
 
     # 判断资源目录是否存在
-    pod_assets_dir="$PODS_TARGET_SRCROOT/Assets"
+    pod_assets_dir="$PODS_TARGET_SRCROOT/Classes/Core/Assets"
     if [ -d $pod_assets_dir ]; then
       echo pod assets dir: $pod_assets_dir
     fi

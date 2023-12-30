@@ -1,3 +1,6 @@
+
+import UIKit
+
 extension UIColor {
     
     /// 自定义色值
@@ -9,7 +12,7 @@ extension UIColor {
     /// - Parameter name: 颜色命名
     /// - Returns: 颜色对象
     static func uikitColor(with name: String) -> UIColor {
-        guard let color = UIColor(named: name, in: .swiftAssetsBundle, compatibleWith: nil)
+        guard let color = UIColor(named: name, in: .resourceBundle, compatibleWith: nil)
         else {
             return .clear
         }
@@ -17,7 +20,7 @@ extension UIColor {
     }
 
     // 获取颜色十六进制字符串
-    var hexValue: String {
+    public var hexValue: String {
         
         let components = self.cgColor.components
         

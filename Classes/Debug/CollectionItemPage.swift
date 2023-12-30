@@ -1,6 +1,10 @@
 import UIKit
 import SnapKit
 
+#if canImport(Core)
+import Core
+#endif
+
 final class CollectionItemPage: UIViewController {
 
     let itemType: ItemType
@@ -36,6 +40,8 @@ final class CollectionItemPage: UIViewController {
         ret.register(ImageCell.self, forCellWithReuseIdentifier: ItemType.image.rawValue)
 
         ret.showsVerticalScrollIndicator = false
+        
+        ret.backgroundColor = .white
 
         return ret
 
@@ -46,9 +52,9 @@ final class CollectionItemPage: UIViewController {
 
         switch itemType {
         case .colorScheme:
-            return UIColor.Scheme.allCases.sorted { $0.name < $1.name }
+            return ColorScheme.allCases.sorted { $0.name < $1.name }
         case .image:
-            return UIImage.Assets.allCases.sorted { $0.name < $1.name }
+            return ImageAssets.allCases.sorted { $0.name < $1.name }
         }
 
     }()
@@ -84,7 +90,7 @@ extension CollectionItemPage: UICollectionViewDelegate, UICollectionViewDataSour
 
         let item = items[indexPath.row]
 
-        if let colorCell = cell as? ColorCell, let schemeColor = item as? UIColor.Scheme {
+        if let colorCell = cell as? ColorCell, let schemeColor = item as? ColorScheme {
 
             colorCell.colorView.backgroundColor = schemeColor.color
 
@@ -92,7 +98,7 @@ extension CollectionItemPage: UICollectionViewDelegate, UICollectionViewDataSour
 
             colorCell.hexValueLabel.text = schemeColor.color.hexValue
 
-        } else if let imageCell = cell as? ImageCell, let imageAsset = item as? UIImage.Assets {
+        } else if let imageCell = cell as? ImageCell, let imageAsset = item as? ImageAssets {
 
             imageCell.imageView.image = imageAsset.image
         }
@@ -153,14 +159,12 @@ class ColorCell: UICollectionViewCell {
 
         colorView.snp.makeConstraints { make in
             make.left.top.right.equalTo(contentView)
-            make.height.equalTo(colorView.snp.width)
         }
 
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(colorView.snp.bottom)
             make.left.right.equalTo(contentView)
             make.height.equalTo(nameLabel.font.lineHeight)
-
         }
 
         hexValueLabel.snp.makeConstraints { make in
