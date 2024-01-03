@@ -21,7 +21,7 @@ let package = Package(
             dependencies: ["SnapKit"],
             path: "Classes/Core",
             resources: [
-                .process("Classes/Core/Assets")
+                .process("Assets")
             ]
         ),
         .target(
